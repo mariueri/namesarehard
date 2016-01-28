@@ -13,7 +13,7 @@ function Get-Macadresses-By-OU {
     # Get all computers in a given OU
     $OU_computers = Get-ADComputer -Filter {ObjectClass -eq "computer"} -SearchBase $OU_path -Properties *
     # Retrieve all computers from the SCCM server
-    $SCCM_computers = Get-WmiObject -Class SMS_R_SYSTEM -Namespace "root\sms\site_UIO" -ComputerName "SCCM-PROD.UIO.NO"
+    $SCCM_computers = Get-WmiObject -Class SMS_R_SYSTEM -Namespace "" -ComputerName "SCCM-PROD.UIO.NO"
  
     # Hash table containing <ip, mac-address> as a <key, value> pair
     $mac_address_table = @{}
@@ -44,9 +44,5 @@ function Get-Macadresses-By-OU {
     
     return $mac_address_table
 }
-
-#$infoterm_OU = "OU=hf,OU=infoterminal,OU=hf,OU=clients,DC=uio,DC=no"
-$terminalstueklient_OU = "OU=terminalstueklient,OU=hf,OU=clients,DC=uio,DC=no"
-#$eksamensklient_OU = "OU=eksamensklient,OU=hf,OU=clients,DC=uio,DC=no"
 
 Get-Macadresses-By-OU -OU_path $terminalstueklient_OU
