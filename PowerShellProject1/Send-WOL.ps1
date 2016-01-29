@@ -42,6 +42,3 @@ function Send-WOL {
     $UDPclient.Close()
 
 }
-
-# Send-WOL -mac_adr "84:8F:69:F8:A8:29" -ip 129.240.162.171 -port 9001
-# Stop-Computer "hf-162-171" -Force
