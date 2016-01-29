@@ -23,13 +23,6 @@ function Wake-OU {
     }
 }
 
-# IMK bachelor har 6 pc-er
-$imk_bachelor_OU = "OU=fp2-2,OU=terminalstueklient,OU=hf,OU=clients,DC=uio,DC=no"
-$infoterm_OU = "OU=hf,OU=infoterminal,OU=hf,OU=clients,DC=uio,DC=no"
-$terminalstueklient_OU = "OU=terminalstueklient,OU=hf,OU=clients,DC=uio,DC=no"
-$eksamensklient_OU = "OU=eksamensklient,OU=hf,OU=clients,DC=uio,DC=no"
-
-
 $timer = [Diagnostics.Stopwatch]::StartNew()
 Wake-OU -OU_path $infoterm_OU
 $timer.Stop()
