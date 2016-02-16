@@ -13,24 +13,10 @@ function Get-Computer-Report {
         While gathering information from larger OUs, the script is 
         quite slow. 173 computers took 1 min 27 seconds.
     .EXAMPLE
+        Usage:
         Get-Computer-Report -OU_path "OU=terminalstueklient,OU=hf,OU=clients,DC=uio,DC=no"
-        
         This will generate a report for the terminalstueklient OU
-        
-        Output:
-    Count Name                     
-    ----- ----                     
-    72 OptiPlex 7010            
-     1 HP Compaq 8200 Elite S...
-     1 HP Compaq Elite 8300 SFF 
-    16 HP Compaq 8200 Elite U...
-    12 OptiPlex 780          ...
-    19 OptiPlex 760          ...
-     1 OptiPlex 7020            
-    35 OptiPlex 790             
-        
     #>
-
 
     [CmdletBinding()]
     param(
@@ -38,7 +24,8 @@ function Get-Computer-Report {
         [String] $OU_path
     )
 
-    # A list containing the model of a computer
+    Write-Host "If the OU contains a lot of computers, this program will take a while to finish." -ForegroundColor Yellow
+    # A list containing the models of all the computers in the OU
     $models = @()
     # Get all the computers of a given OU
     $computer_list = Get-ADComputer -Filter {ObjectClass -eq "computer"} -searchBase $OU_path
@@ -48,6 +35,7 @@ function Get-Computer-Report {
         
         $is_online = Test-Connection $computer.Name -Quiet -Count 1
         
+        # If the computer is online, retrieve its model.
         if($is_online -eq $true) {
             $models += Get-WmiObject -Class Win32_ComputerSystem -ComputerName $computer.Name | select Model
         }
@@ -55,10 +43,3 @@ function Get-Computer-Report {
 
     $models | Group-Object Model -NoElement
 }
-
-$OU_path = "OU=terminalstueklient,OU=hf,OU=clients,DC=uio,DC=no"
-
-$timer = [Diagnostics.Stopwatch]::StartNew()
-Get-Computer-Report -OU_path $OU_path
-$timer.Stop()
-$timer.Elapsed
