@@ -12,6 +12,22 @@ function Get-Computer-Report {
         This script can be executed from lita-ts.
         While gathering information from larger OUs, the script is 
         quite slow. 173 computers took 1 min 27 seconds.
+    .EXAMPLE
+        Get-Computer-Report -OU_path "OU=terminalstueklient,OU=hf,OU=clients,DC=uio,DC=no"
+        
+        This will generate a report for the terminalstueklient OU
+        
+        Output:
+    Count Name                     
+    ----- ----                     
+    72 OptiPlex 7010            
+     1 HP Compaq 8200 Elite S...
+     1 HP Compaq Elite 8300 SFF 
+    16 HP Compaq 8200 Elite U...
+    12 OptiPlex 780          ...
+    19 OptiPlex 760          ...
+     1 OptiPlex 7020            
+    35 OptiPlex 790             
         
     #>
 
